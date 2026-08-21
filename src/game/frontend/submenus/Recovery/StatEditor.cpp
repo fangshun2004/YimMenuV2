@@ -361,26 +361,36 @@ namespace YimMenu::Submenus
 		switch (data->GetType())
 		{
 		case sStatData::Type::_BOOL:
-			return ImGui::Checkbox("Value", &value.m_AsBool);
+			ImGui::Checkbox("Value", &value.m_AsBool);
+			break; 
 		case sStatData::Type::FLOAT:
-			return ImGui::InputFloat("Value", &value.m_AsFloat[0]);
+			ImGui::InputFloat("Value", &value.m_AsFloat[0]);
+			break;
 		case sStatData::Type::INT:
-			return ImGui::InputInt("Value", &value.m_AsInt);
+			ImGui::InputInt("Value", &value.m_AsInt);
+			break;
 		case sStatData::Type::UINT32:
-			return ImGui::InputScalar("Value", ImGuiDataType_U32, &value.m_AsInt);
+			 ImGui::InputScalar("Value", ImGuiDataType_U32, &value.m_AsInt);
+			break
 		case sStatData::Type::UINT16:
-			return ImGui::InputScalar("Value", ImGuiDataType_U16, &value.m_AsInt);
+			 ImGui::InputScalar("Value", ImGuiDataType_U16, &value.m_AsInt);
+			break;
 		case sStatData::Type::UINT8:
-			return ImGui::InputScalar("Value", ImGuiDataType_U8, &value.m_AsInt);
+			ImGui::InputScalar("Value", ImGuiDataType_U8, &value.m_AsInt);
+			break; 
 		case sStatData::Type::INT64:
-			return ImGui::InputScalar("Value", ImGuiDataType_S64, &value.m_AsU64);
+			 ImGui::InputScalar("Value", ImGuiDataType_S64, &value.m_AsU64);
+			break;
 		case sStatData::Type::UINT64:
 		case sStatData::Type::USERID:
-			return ImGui::InputScalar("Value", ImGuiDataType_U64, &value.m_AsU64);
+			ImGui::InputScalar("Value", ImGuiDataType_U64, &value.m_AsU64);
+			break; 
 		case sStatData::Type::STRING:
-			return ImGui::InputText("Value", value.m_AsString, sizeof(value.m_AsString));
+			 ImGui::InputText("Value", value.m_AsString, sizeof(value.m_AsString));
+			break;
 		case sStatData::Type::PACKED:
-			return ImGui::Bitfield("Value", &value.m_AsU64);
+			 ImGui::Bitfield("Value", &value.m_AsU64);
+			break;
 		case sStatData::Type::POS:
 			ImGui::PushItemWidth(50.0f);
 			ImGui::InputFloat("X", &value.m_AsFloat[0]);
@@ -389,7 +399,7 @@ namespace YimMenu::Submenus
 			ImGui::SameLine();
 			ImGui::InputFloat("Z", &value.m_AsFloat[2]);
 			ImGui::PopItemWidth();
-			return true;
+			break;
 		case sStatData::Type::DATE:
 		{
 			ImGui::PushItemWidth(60.0f);
@@ -410,7 +420,7 @@ namespace YimMenu::Submenus
 			ImGui::InputScalar("Millisecond", ImGuiDataType_U32, &value.m_Date.Millisecond);
 			ImGui::PopItemWidth();
 			if (CheckDate(value.m_Date))
-				return true;
+				break;
 			else
 			{
 				ImGui::TextColored(ImVec4(0.957f, 0.643f, 0.376f, 1.00f), "The entered date or time is invalid, please recheck the input data.");
@@ -425,6 +435,8 @@ namespace YimMenu::Submenus
 			ImGui::EndDisabled();
 			return false; // data type not supported
 		}
+
+		return true;
 	}
 
 	static PackedStatInfo GetPackedStatInfo(int index)
